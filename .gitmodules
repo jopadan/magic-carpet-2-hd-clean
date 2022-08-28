@@ -1,0 +1,15 @@
+[submodule "src/orig/magic-carpet-2-hd"]
+	path = src/orig/magic-carpet-2-hd
+	url = http://github.com/jopadan/magic-carpet-2-hd
+[submodule "src/libs/findfirst"]
+	path = src/libs/findfirst
+	url = http://github.com/MathieuTurcotte/findfirst
+[submodule "src/libs/inih"]
+	path = src/libs/inih
+	url = http://github.com/benhoyt/inih
+[submodule "src/libs/tronkko/dirent"]
+	path = src/libs/tronkko/dirent
+	url = http://github.com/tronkko/dirent
+[submodule "src/libs/itoa-benchmark"]
+	path = src/libs/itoa-benchmark
+	url = http://github.com/miloyip/itoa-benchmark
