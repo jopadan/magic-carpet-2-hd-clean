@@ -26,21 +26,21 @@ including new HD assets.
 
 ## Building
 
-1. configure, compile and install
-   - ```bash
-     export BUILDTYPE=Debug # or Release
-     mkdir -p build/${BUILDTYPE}
-     cd build/${BUILDTYPE}
-     cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DDATADIR=/usr/share/remc2 --install-prefix=/usr [SOURCE_DIR]
-     make
-     make install
-     ```
-  - optional components are enabled using the `-DUSE_SANITIZERS=True` and `-DUSE_CLANG_TIDY=True` flags
+1. Configure, compile and install
+   ```bash
+   export BUILDTYPE=Debug # or Release
+   mkdir -p build/${BUILDTYPE}
+   cd build/${BUILDTYPE}
+   cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DDATADIR=/usr/share/remc2 --install-prefix=/usr [SOURCE_DIR]
+   make
+   make install
+   ```
+   - optional components are enabled using the `-DUSE_SANITIZERS=True` and `-DUSE_CLANG_TIDY=True` flags
 
-2. asset preparation
+2. Asset preparation
    - copy orginal CD contents to DATADIR/gamedisc
 
-3. asset search path relative to
+3. Asset search path relative to
    - `cwd`
    - `$XDG_CONFIG_HOME/remc2`
    - `$HOME/.config/remc2`
