@@ -35,7 +35,7 @@ including new HD assets.
    make
    make install
    ```
-   optional components are enabled using the `-DUSE_SANITIZERS=True` and `-DUSE_CLANG_TIDY=True` flags
+   - optional components are enabled using the `-DUSE_SANITIZERS=True` and `-DUSE_CLANG_TIDY=True` flags
 
 2. Asset preparation
    - copy orginal CD contents to DATADIR/gamedisc
