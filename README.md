@@ -4,19 +4,19 @@ Magic Carpet 2 decompiled port project founded by @turican0 including new HD ass
 
 ## Dependencies
 
-- @boostorg's   [boost](https://github.com/boostorg/boost)
-- @boostorg's   [system](https://github.com/boostorg/system)
-- @glennrp's    [libpng](https://github.com/glennrp/libpng)
-- @libsdl-org's [SDL2](https://github.com/libsdl-org/SDL)
-- @libsdl-org's [SDL2_image](https://github.com/libsdl-org/SDL2_image)
-- @WohlSoft's   [SDL-Mixer-X alias SDL2_mixer_ext](https://github.com/WohlSoft/SDL-Mixer-X)
+- @[boostorg](https://github.com/boostorg/)'s    [boost](https://github.com/boostorg/boost)
+- @[boostorg](https://github.com/boostorg/)'s    [system](https://github.com/boostorg/system)
+- @[glennrp](https://github.com/glennrp/)'s      [libpng](https://github.com/glennrp/libpng)
+- @[libsdl-org](https://github.com/libsdl-org)'s [SDL2](https://github.com/libsdl-org/SDL)
+- @[libsdl-org](https://github.com/libsdl-org)'s [SDL2_image](https://github.com/libsdl-org/SDL2_image)
+- @[WohlSoft](https://github.om/WohlSoft)'s      [SDL-Mixer-X alias SDL2_mixer_ext](https://github.com/WohlSoft/SDL-Mixer-X)
 
 ### Submodules
 
-- @MathieuTurcotte's [findfirst](https://github.com/MathieuTurcotte/findfirst)
-- @tronkko's         [dirent](https://github.com/tronkko/dirent)
-- @benhoyt's         [benhoyt](https://github.com/benhoyt/inih)
-- @miloyip's         [miloyip](https://github.com/miloyip/itoa-benchmark)
+- @[MathieuTurcotte](https://github.com/MathieuTurcotte/]'s [findfirst](https://github.com/MathieuTurcotte/findfirst)
+- @[tronkko](https://github.com/tronkko)'s                  [dirent](https://github.com/tronkko/dirent)
+- @[benhoyt](https://github.com/benhoyt)'s                  [benhoyt](https://github.com/benhoyt/inih)
+- @[miloyip](https://github.com/miloyip)'s                  [miloyip](https://github.com/miloyip/itoa-benchmark)
 
 ### Optional debug development dependencies
 
