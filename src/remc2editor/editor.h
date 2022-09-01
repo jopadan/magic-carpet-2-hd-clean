@@ -5,7 +5,7 @@
 #include "kiss_sdl.h"
 
 #define IS_EDITOR
-#include "../sub_main.h"
+#include "../../remc2/sub_main.h"
 //#include "../engine/engine_support.h"
 //#include "../Terrain.h"
 

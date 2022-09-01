@@ -16,12 +16,8 @@ using namespace std;
 
 //#include "../portability/port_time.h"
 //#include "../portability/port_sdl_vga_mouse.h"
+#include "SDL.h"
 
-#ifdef _MSC_VER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
 #include "editor.h"
 
 int main(int argc, char* argv[])

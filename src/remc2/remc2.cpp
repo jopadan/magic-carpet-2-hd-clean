@@ -3,8 +3,8 @@
 #include <boost/bind/bind.hpp>
 #include <boost/asio.hpp>
 
-#include "engine/CommandLineParser.h"
-#include "engine/engine_support.h"
+#include "CommandLineParser.h"
+#include "engine_support.h"
 #include "sub_main.h"
 
 using namespace std;

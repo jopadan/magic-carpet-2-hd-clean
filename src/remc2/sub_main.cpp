@@ -1,8 +1,8 @@
 #include "sub_main.h"
-#include "engine/engine_support.h"
-#include "engine/CommandLineParser.h"
-#include "engine/MenusAndIntros.h"
-#include "engine/Network.h"
+#include "engine_support.h"
+#include "CommandLineParser.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
 
 /*
 
@@ -26,7 +26,7 @@ after NetworkCancel_748F7 not changed
 #define strnicmp strncasecmp
 #define __cdecl
 #include <ctype.h>
-#include "../findfirst/findfirst.h"
+#include "findfirst.h"
 #include <iostream>
 #include <functional>
 #include <type_traits>
