@@ -5,6 +5,8 @@ including new HD assets.
 
 ## Dependencies
 
+1. Operating system provided
+
 - [boost](https://github.com/boostorg/boost)
 - [boost-system](https://github.com/boostorg/system)
 - [libpng](https://github.com/glennrp/libpng)
@@ -12,14 +14,14 @@ including new HD assets.
 - [SDL2_image](https://github.com/libsdl-org/SDL_image)
 - [SDL-Mixer-X alias SDL2_mixer_ext](https://github.com/WohlSoft/SDL-Mixer-X)
 
-### Submodules
+2. Submodules included
 
 - [findfirst](https://github.com/MathieuTurcotte/findfirst)
 - [dirent](https://github.com/tronkko/dirent)
 - [inih](https://github.com/benhoyt/inih)
 - [itoa-benchmark](https://github.com/miloyip/itoa-benchmark)
 
-### Debug
+3. Debug development optional
 
 - [clang-tidy](https://github.com/llvm/)
 - [sanitizers](https://github.com/sanitizers/)
@@ -27,7 +29,7 @@ including new HD assets.
 
 ## Building
 
-- configure, compile and install
+1. configure, compile and install
 
   ```bash
   export BUILDTYPE=Debug # or Release
@@ -47,17 +49,17 @@ including new HD assets.
 
   flags
 
-- asset preparation
+2. asset preparation
 
-  1. copy orginal CD contents to DATADIR/gamedisc
+  - copy orginal CD contents to DATADIR/gamedisc
 
-- asset search path relative to
+3. asset search path relative to
 
-  1. current working dir
-  2. `$XDG_CONFIG_HOME/remc2`
-  3. `$HOME/.config/remc2`
-  4. DATADIR=/usr/share/remc2
-  5. dir of executable
+  - `cwd`
+  - `$XDG_CONFIG_HOME/remc2`
+  - `$HOME/.config/remc2`
+  - CMakeList.txt: -DDATADIR=/usr/share/remc2 / config.ini: gameDataFolder=/usr/share/remc2
+  - directory of remc2 executable
 
 ## Usage
 
