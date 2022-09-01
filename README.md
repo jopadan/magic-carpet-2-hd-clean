@@ -1,72 +1,64 @@
-# Magic Carpet 2 HD Clean
+# Magic Carpet 2 HD
 
-Reorganize and clean code base of active fork at https://github.com/thobbsinteractive/magic-carpet-2-hd
-
-## Changelog
+Magic Carpet 2 decompiled port project founded by @turican0 including new HD assets.
 
 ## Dependencies
-  - SDL2
-  - SDL2-Mixer-X
+
+- @boostorg's   [boost](https://github.com/boostorg/boost)
+- @boostorg's   [system](https://github.com/boostorg/system)
+- @glennrp's    [libpng](https://github.com/glennrp/libpng)
+- @libsdl-org's [SDL2](https://github.com/libsdl-org/SDL)
+- @libsdl-org's [SDL2_image](https://github.com/libsdl-org/SDL2_image)
+- @WohlSoft's   [SDL-Mixer-X alias SDL2_mixer_ext](https://github.com/WohlSoft/SDL-Mixer-X)
+
+### Submodules
+
+- @MathieuTurcotte's [findfirst](https://github.com/MathieuTurcotte/findfirst)
+- @tronkko's         [dirent](https://github.com/tronkko/dirent)
+- @benhoyt's         [benhoyt](https://github.com/benhoyt/inih)
+- @miloyip's         [miloyip](https://github.com/miloyip/itoa-benchmark)
+
+### Optional debug development dependencies
+
+- [clang-tidy](https://github.com/llvm/)
+- [sanitizers](https://github.com/sanitizers/)
+- [flatpak](https://flatpak.org/)
 
 ## Building
 
-  ```c
-  cmake --install-prefix=/usr .
+- configure, compile and install
+
+  ```bash
+  export BUILDTYPE=Debug # or Release
+  mkdir -p build/${BUILDTYPE}
+  cd build/${BUILDTYPE}
+  cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DDATADIR=/usr/share/remc2 --install-prefix=/usr [SOURCE_DIR]
   make
   make install
   ```
+  optional components are enabled using the
+  `-
+  `-DUSE_SANITIZERS=True` 
+  and
+  `-DUSE_CLANG_TIDY=True`
+  flags
 
-  ```
-  5. NOTE: The game will search in the following locations (and in this particular order) for the game assets. For the flatpak only the first two locations can be used.
-     1. `$XDG_DATA_HOME/remc2/`
-     2. `$HOME/.local/share/remc2`
-     3. next to the `remc2` binary
-  6. Run the `remc2` executable in install directory
+- asset preparation
+
+  1. copy orginal CD contents to DATADIR/gamedisc
+
+- asset search path relative to
+
+  1. current working dir
+  2. `$XDG_CONFIG_HOME/remc2`
+  3. `$HOME/.config/remc2`
+  4. DATADIR=/usr/share/remc2
+  5. dir of executable
+
+## Usage
+
+  Run the `remc2` flatpak via
   ```bash
-  cd /Documents/repos/magic-carpet-2-hd/build/${BUILDTYPE}/inst/bin
-  ./remc2
+  flatpak run com.github.thobbsinteractive.magic-carpet-2-hd
   ```
 
-#### Configuring `remc2`
-
-Some settings can be configured via the file `config.ini`. An example for this file can be found in the root directory of the `remc2` repository.
-The game will search for this file in the following locations and this particular order. For the flatpak only the first two locations can be used.
-1. `$XDG_CONFIG_HOME/remc2`
-2. `$HOME/.config/remc2`
-3. next to the `remc2` binary
-
-
-# ROADMAP:
-
-## MILLSTONE 1
-- [x] Get solution runnable from Visual Studio 2019 build, with minimum of setup. Cut down on unnecessary extra files and libraries and use nuget instead.
-- [x] Refactor reverse engineered code into seperate classes where possible.
-
-## MILLSTONE 2
-- [x] Add resolution support
-- [ ] Implement Open GL render
-- [ ] Implement a (platform independent) Launch menu to adjust settings in config.ini before launch
-
-## MILLSTONE 3
-- [ ] Improve sounds and music using updated original scores and directional sounds in game
-- [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
-
-## MILLSTONE 4
-- [ ] Get basic LAN/IPv4 multiplayer working again (Tom is currently making great progress on this!)
-
-## MILLSTONE 5
-- [ ] Get Magic Carpet 1 working using this engine. Ideally with original music and graphics.
-
-## LONG TERM GOALS
-- Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
-- Implement online multiplayer match making
-
-## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com or find us on Discord here: https://discord.gg/mFMRUVeu
-
-## Development Guide ##
-- The Project is compiled as C++17.
-- If you re-name a method include the id from the original method name as this makes it easier to track changes from the generated code.
-e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void ChangeSoundLevel_19CA0(uint8_t option)`
-- Please follow the general style of the refactored code. Upper Camel Case (Pascal Case) for Class/Method names. Camel Case for variables. 'm_' for class members. `GameRenderHD.cpp` is a good example of the style.
-- Where possible (if writting new code) please use the fixed width types. https://en.cppreference.com/w/cpp/types/integer
-- Be careful with making logic changes to the code and Test, Test, Test! I recommend playing the first level all the way though. Then the first Cave level (4) and I also recomend Level 5 as you have a nice mix of AI to kill and a cutscene at level completion.
