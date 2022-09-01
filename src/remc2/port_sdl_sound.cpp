@@ -667,9 +667,11 @@ int run()
 	/* local variables */
 	static SDL_AudioSpec            spec; /* the specs of our piece of music */
 	static struct ADL_MIDIPlayer    *midi_player = NULL; /* Instance of ADLMIDI player */
-	static const char               *music_path = NULL; /* Path to music file */
+	static const std::filesystem::path music_path = DATADIR; /* Path to music file */
 
-	music_path = DATADIR / "memimages" / "midi" / "Music001.mid";
+	music_path /= "memimages";
+	music_path /= "midi";
+	music_path /= "Music001.mid";
 
 	/* Initialize SDL.*/
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
@@ -709,7 +711,7 @@ int run()
 	/*adl_openBankFile(midi_player, "/home/vitaly/Yandex.Disk/??????/Wolfinstein.wopl");*/
 
 	/* Open the MIDI (or MUS, IMF or CMF) file to play */
-	if (adl_openFile(midi_player, music_path) < 0)
+	if (adl_openFile(midi_player, music_path.c_str()) < 0)
 	{
 		fprintf(stderr, "Couldn't open music file: %s\n", adl_errorInfo(midi_player));
 		SDL_CloseAudio();
