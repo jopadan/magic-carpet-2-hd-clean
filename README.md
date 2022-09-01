@@ -1,7 +1,8 @@
 # Magic Carpet 2 HD
 
-Magic Carpet 2 decompiled port project founded by [@turican0](https://github.com/turican0/)
-and maintained active fork by [@thobbsinteractive](https://github.com/thobbsinteractive/) new HD assets.
+Magic Carpet 2 decompiled port project founded by [@turican0](https://github.com/turican0/)\
+and maintained active fork by [@thobbsinteractive](https://github.com/thobbsinteractive/)<\
+including new HD assets.
 
 ## Dependencies
 
