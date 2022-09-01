@@ -8,7 +8,7 @@ Magic Carpet 2 decompiled port project founded by @turican0 including new HD ass
 - [boost-system](https://github.com/boostorg/system)
 - [libpng](https://github.com/glennrp/libpng)
 - [SDL2](https://github.com/libsdl-org/SDL)
-- [SDL2_image](https://github.com/libsdl-org/SDL2_image)
+- [SDL2_image](https://github.com/libsdl-org/SDL_image)
 - [SDL-Mixer-X alias SDL2_mixer_ext](https://github.com/WohlSoft/SDL-Mixer-X)
 
 ### Submodules
@@ -18,7 +18,7 @@ Magic Carpet 2 decompiled port project founded by @turican0 including new HD ass
 - [benhoyt](https://github.com/benhoyt/inih)
 - [miloyip](https://github.com/miloyip/itoa-benchmark)
 
-### Optional debug development dependencies
+### Debug
 
 - [clang-tidy](https://github.com/llvm/)
 - [sanitizers](https://github.com/sanitizers/)
@@ -37,10 +37,13 @@ Magic Carpet 2 decompiled port project founded by @turican0 including new HD ass
   make install
   ```
   optional components are enabled using the
-  `-
-  `-DUSE_SANITIZERS=True` 
+
+  `-DUSE_SANITIZERS=True`
+
   and
+
   `-DUSE_CLANG_TIDY=True`
+
   flags
 
 - asset preparation
