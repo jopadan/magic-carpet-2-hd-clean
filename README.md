@@ -16,7 +16,7 @@ including new HD assets.
 
 - [findfirst](https://github.com/MathieuTurcotte/findfirst)
 - [dirent](https://github.com/tronkko/dirent)
-- [benhoyt](https://github.com/benhoyt/inih)
+- [inih](https://github.com/benhoyt/inih)
 - [itoa-benchmark](https://github.com/miloyip/itoa-benchmark)
 
 ### Debug
