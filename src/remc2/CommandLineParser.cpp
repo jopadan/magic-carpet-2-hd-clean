@@ -43,7 +43,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_set_objective = false;
     m_set_level = false;
     m_test_network_chng1 = false;
-    m_memimages_path = DATADIR / "memimages";
+    m_memimages_path = std::filesystem::path(DATADIR) / "memimages";
 
     this->m_params.clear();
     for (int i=1; i < argc; ++i) {

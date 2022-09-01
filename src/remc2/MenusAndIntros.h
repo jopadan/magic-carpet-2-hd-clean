@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "../sub_main.h"
+#include "sub_main.h"
 #include "TypeConfigDat.h"
 
 // from sub_main

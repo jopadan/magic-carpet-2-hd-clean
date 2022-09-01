@@ -7,15 +7,19 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <direct.h>  
-//#include <dir.h>
-#include <io.h>  
+#ifdef _MSC_VER
+    #include <direct.h>  
+    #include <io.h>  
+    #include <windows.h>
+    #include "dirent-x.h"
+    #include "cd_utils.h"
+#else
+    #include "dirent.h"
+#endif
 
 #include "port_outputs.h"
 
 //#include <sys/statvfs.h>
-#include <windows.h>
-#include "dirent.h"
 #include "port_time.h"
 #include "port_filesystem.h"
 #include "port_sdl_sound.h"
@@ -30,7 +34,6 @@
 
 #include "sub_main_mouse.h"
 
-#include "cd_utils.h"
 
 int x_DWORD_E3E9C[] = { 0 }; // weak
 int x_DWORD_E3ED8 = 0; // weak

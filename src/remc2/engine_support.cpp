@@ -574,21 +574,25 @@ void support_end() {
 }
 
 void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
-	char findnamec[500];
+	std::filesystem::path findname = DATADIR;
+	findname /= "memimages";
+	findname /= "engine-memory-";
+	findname += filename;
 	FILE* fptestepc;
-	sprintf(findnamec, "%s%s", DATADIR / "memimages" / "engine-memory-", filename);
-	fptestepc = fopen(findnamec, "rb");
+	fptestepc = fopen(findname.c_str(), "rb");
 	fseek(fptestepc, adressdos, SEEK_SET);
 	fread(adress, size, 1, fptestepc);
 	fclose(fptestepc);
 };
 
 void loadfromsnapshot2(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
-	char findnamec[500];
+	std::filesystem::path findname = DATADIR;
+	findname /= "memimages";
+	findname /= "engine-memory-";
+	findname += filename;
 	FILE* fptestepc;
 	uint32_t subadress;
-	sprintf(findnamec, "%s%s", DATADIR / "memimages" / "engine-memory-", filename);
-	fptestepc = fopen(findnamec, "rb");
+	fptestepc = fopen(findname.c_str(), "rb");
 	fseek(fptestepc, adressdos, SEEK_SET);
 	fread(&subadress, 4, 1, fptestepc);
 	fseek(fptestepc, subadress, SEEK_SET);
@@ -598,15 +602,17 @@ void loadfromsnapshot2(const char* filename, uint8_t* adress, uint32_t adressdos
 };
 
 uint32_t compare_with_snapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size, uint8_t* origbyte, uint8_t* copybyte) {
-	char findnamec[500];
+	std::filesystem::path findname = DATADIR;
+	findname /= "memimages";
+	findname /= "engine-memory-";
+	findname += filename;
 	uint8_t* buffer = (uint8_t*)malloc(size);
 	FILE* fptestepc;
-	sprintf(findnamec, "%s%s", DATADIR / "memimages" / "engine-memory-", filename);
-	fptestepc = fopen(findnamec, "rb");
+	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
 	{
 		mydelay(100);
-		fptestepc = fopen(findnamec, "rb");
+		fptestepc = fopen(findname.c_str(), "rb");
 	}
 	fseek(fptestepc, adressdos, SEEK_SET);
 
