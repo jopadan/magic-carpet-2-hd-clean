@@ -394,7 +394,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 	int v6; // [esp+8h] [ebp-4h]
 	char tmapsdirpost[512];
 
-	if (bigSprites)
+	if (settings.bigSprites)
 	{
 		if (!big_sprites_inited)
 		{
@@ -412,11 +412,11 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		char spritePath[512];
 		if (big_sprites_inited)
 		{
-			sprintf(spritePath, "%s", bigGraphicsPath.c_str());
+			sprintf(spritePath, "%s", settings.bigGraphicsPath.c_str());
 		}
 		else
 		{
-			sprintf(spritePath, "%s", gameDataPath.c_str());
+			sprintf(spritePath, "%s", settings.gameDataPath.c_str());
 		}
 
 		switch (D41A0_0.terrain_2FECE.MapType) {
@@ -455,7 +455,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 				//WriteTextureMapToBmp(i, index3x->partstr_0, D41A0_0.terrain_2FECE.MapType);
 				if (index4 != -1)
 				{
-					if (bigSprites)
+					if (settings.bigSprites)
 					{
 						type_particle_str* oldtmapx = index3x->partstr_0;
 						int oldwidth = oldtmapx->width;
@@ -591,25 +591,25 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 void sub_70A60_open_tmaps()//251a60
 {
 
-	std::string tMapPath0 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT");
+	std::string tMapPath0 = GetSubDirectoryFile(settings.gameFolder, "CDATA", "TMAPS0-0.DAT");
 	x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
 	if (x_DWORD_DB740_tmaps00file == NULL)
 	{
-		tMapPath0 = GetSubDirectoryFile(gameFolder, "DATA", "TMAPS0-0.DAT");
+		tMapPath0 = GetSubDirectoryFile(settings.gameFolder, "DATA", "TMAPS0-0.DAT");
 		x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
 	}
-	std::string tMapPath1 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS1-0.DAT");
+	std::string tMapPath1 = GetSubDirectoryFile(settings.gameFolder, "CDATA", "TMAPS1-0.DAT");
 	x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
 	if (x_DWORD_DB744_tmaps10file == NULL)
 	{
-		tMapPath1 = GetSubDirectoryFile(gameFolder, "DATA", "TMAPS1-0.DAT");
+		tMapPath1 = GetSubDirectoryFile(settings.gameFolder, "DATA", "TMAPS1-0.DAT");
 		x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
 	}
-	std::string tMapPath2 = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS2-0.DAT");
+	std::string tMapPath2 = GetSubDirectoryFile(settings.gameFolder, "CDATA", "TMAPS2-0.DAT");
 	x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
 	if (x_DWORD_DB748_tmaps20file == NULL)
 	{
-		tMapPath2 = GetSubDirectoryFile(gameFolder, "DATA", "TMAPS2-0.DAT");
+		tMapPath2 = GetSubDirectoryFile(settings.gameFolder, "DATA", "TMAPS2-0.DAT");
 		x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
 	}
 	x_DWORD_DB73C_tmapsfile = x_DWORD_DB740_tmaps00file;

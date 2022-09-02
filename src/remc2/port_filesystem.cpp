@@ -10,11 +10,6 @@ using namespace std;
 #endif
 */
 
-//char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gameFolder[512] = "NETHERW";
-char cdFolder[512] = "CD_Files";
-char bigGraphicsFolder[512] = "bigGraphics";
-
 #ifndef _MSC_VER
 	#include <libgen.h>
 	#include <iostream>
@@ -483,7 +478,14 @@ void ReadGraphicsfile(const char* path, uint8_t* buffer, long size)
 std::string getExistingDataPath(std::filesystem::path path) 
 {
 	std::vector<std::string> file_locations;
-#ifdef __linux__
+#ifdef _WIN32
+	auto home_drive = std::getenv("HOMEDRIVE");
+	auto home_path =  std::getenv("HOMEPATH");
+	if (home_drive && home_path) {
+		std::filesystem::path home_dir(std::string(home_drive) + "/" + std::string(home_path));
+		file_locations.push_back((home_dir / "remc2" / path).string());
+	}
+#else
 	auto env_home_dir = std::getenv("HOME");
 	auto env_xdg_data_home_dir = std::getenv("XDG_DATA_HOME");
 	std::filesystem::path home_dir;
@@ -496,13 +498,6 @@ std::string getExistingDataPath(std::filesystem::path path)
 	}
 	if (std::filesystem::exists(home_dir)) {
 		file_locations.emplace_back(home_dir / ".local" / "share" / "remc2" / path);
-	}
-#else //__linux__
-	auto home_drive = std::getenv("HOMEDRIVE");
-	auto home_path =  std::getenv("HOMEPATH");
-	if (home_drive && home_path) {
-		std::filesystem::path home_dir(std::string(home_drive) + "/" + std::string(home_path));
-		file_locations.push_back((home_dir / "remc2" / path).string());
 	}
 #endif //__linux__
 	file_locations.push_back(get_exe_path() + "/" + path.string());
@@ -529,38 +524,35 @@ std::string getExistingDataPath(std::filesystem::path path)
 	return file_found;
 }
 
-std::string GetSubDirectoryPath(const char* subDirectory)
+std::filesystem::path GetSubDirectoryPath(const std::filesystem::path& subDirectory)
 {
-	std::string path = getExistingDataPath(subDirectory);
-	return path.c_str();
+	return getExistingDataPath(subDirectory);
 }
 
-std::string GetSubDirectoryPath(const char* gamepath, const char* subDirectory)
+std::filesystem::path GetSubDirectoryPath(const std::filesystem::path& gamepath, const std::filesystem::path& subDirectory)
 {
-	std::string path = getExistingDataPath(
-		std::filesystem::path(gamepath) / std::filesystem::path(subDirectory)
-	);
-	return path.c_str();
+	return getExistingDataPath(gamepath / subDirectory);
 }
 
-std::string GetSubDirectoryFilePath(const char* subDirectory, const char* fileName)
+std::filesystem::path GetSubDirectoryFilePath(const std::filesystem::path& subDirectory, const std::filesystem::path& fileName)
 {
-	std::string subDirPath = GetSubDirectoryPath(subDirectory);
-	return subDirPath + "/" + std::string(fileName);
+	return (GetSubDirectoryPath(subDirectory) / fileName);
 }
 
-std::string GetSubDirectoryFile(const char* gamepath, const char* subDirectory, const char* fileName)
+std::filesystem::path GetSubDirectoryFile(const std::filesystem::path& gamepath, const std::filesystem::path& subDirectory, const std::filesystem::path& fileName)
 {
-	std::string subDirPath = GetSubDirectoryPath(gamepath, subDirectory);
-	return subDirPath + "/" + std::string(fileName);
+	return GetSubDirectoryPath(gamepath, subDirectory) / fileName;
 }
 
-std::string GetSaveGameFile(const char* gamepath, int16_t index)
+std::filesystem::path GetIndexedGameFile(const std::filesystem::path& gamepath, const std::filesystem::path& subDirectory,
+                                         const std::filesystem::path& stem, int16_t index, const std::filesystem::path& ext)
 {
-	std::string subDirPath = GetSubDirectoryPath(gamepath, "SAVE");
-	char buffer[MAX_PATH];
-	sprintf(buffer, "%s/SAVE%d.GAM", subDirPath.c_str(), index);
-	return std::string(buffer);
+	return (GetSubDirectoryPath(gamepath, subDirectory) / (stem.native() + std::to_string(index) + ext.native()));
+}
+
+std::filesystem::path GetSaveGameFile(const std::filesystem::path& gamepath, int16_t index)
+{
+	return GetIndexedGameFile(gamepath, "SAVE", "SAVE", index, ".GAM");
 }
 
 int GetDirectory(char* directory, const char* filePath)

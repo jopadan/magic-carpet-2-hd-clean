@@ -4,33 +4,49 @@
 #include <filesystem>
 #include <cstdlib>
 
-int config_skip_screen;
-int texturepixels = 32;
-int speedGame = 35;
-int speedAnim = 100;
-int windowResWidth = 640;
-int windowResHeight = 480;
-int gameResWidth = 640;
-int gameResHeight = 480;
-bool maintainAspectRatio = false;
-bool bigTextures = false;
-bool bigSprites = false;
-bool sky = true;
-bool reflections = false;
-bool dynamicLighting = false;
-bool multiThreadedRender = false;
-int numberOfRenderThreads = 0;
-bool assignToSpecificCores = false;
-bool openGLRender = false;
+config_t settings {
+	.config_skip_screen = 0,
+	.texturepixels = 32,
+	.speedGame = 35,
+	.speedAnim = 100,
+	.windowResWidth = 640,
+	.windowResHeight = 480,
+	.gameResWidth = 640,
+	.gameResHeight = 480,
+	.maintainAspectRatio = false,
+	.bigTextures = false,
+	.bigSprites = false,
+	.sky = true,
+	.reflections = false,
+	.dynamicLighting = false,
+	.openGLRender = false,
+	.multiThreadedRender = false,
+	.numberOfRenderThreads = 0,
+	.assignToSpecificCores = false,
+	.gameFolder = "NETHERW",
+	.cdFolder = "gamedisc",
+	.bigGraphicsFolder = "graphics/128x128",
+	.dataFolder = "/usr/share/remc2",
+};
 
 std::string findIniFile() {
 	// find location of inifile and read it
 	std::vector<std::string> inifile_locations;
-#ifdef __linux__
+	// add current path
+	inifile_locations.push_back(std::filesystem::current_path() / "config.ini");
+#ifdef _WIN32
+	auto home_drive = std::getenv("HOMEDRIVE");
+	auto home_path =  std::getenv("HOMEPATH");
+	if (home_drive && home_path) {
+		std::filesystem::path home_dir = std::filesystem::path(home_drive)  / std::filesystem::path(home_path);
+		inifile_locations.push_back(home_dir / "/remc2/config.ini");
+	}
+#else
 	auto env_home_dir = std::getenv("HOME");
 	auto env_xdg_config_home_dir = std::getenv("XDG_CONFIG_HOME");
 	std::filesystem::path home_dir;
 	std::filesystem::path xdg_config_home_dir;
+	std::filesystem::path data_dir = settings.dataFolder;
 	if (env_home_dir) home_dir = env_home_dir;
 	if (env_xdg_config_home_dir) xdg_config_home_dir = env_xdg_config_home_dir;
 
@@ -40,14 +56,10 @@ std::string findIniFile() {
 	if (std::filesystem::exists(home_dir)) {
 		inifile_locations.emplace_back(home_dir / ".config" / "remc2" / "config.ini");
 	}
-#else //__linux__
-	auto home_drive = std::getenv("HOMEDRIVE");
-	auto home_path =  std::getenv("HOMEPATH");
-	if (home_drive && home_path) {
-		std::string home_dir = std::string(home_drive) + "/" + std::string(home_path);
-		inifile_locations.push_back(home_dir + "/remc2/config.ini");
+	if(std::filesystem::exists(data_dir)) {
+		inifile_locations.emplace_back(data_dir / "config.ini");
 	}
-#endif //__linux__
+#endif
 	inifile_locations.push_back(get_exe_path() + "/config.ini");
 	std::string inifile;
 	// first location at which an inifile can be found is chosen
@@ -78,114 +90,109 @@ bool readini() {
 		return false;
 	}
 	if (reader.GetBoolean("skips", "skipintro", true))
-		config_skip_screen = 1;
+		settings.config_skip_screen = 1;
 	else
-		config_skip_screen = 0;
+		settings.config_skip_screen = 0;
 
 	if (reader.GetBoolean("sound", "hqsound", true))
-		hqsound = true;
+		settings.hqsound = true;
 	else
-		hqsound = false;
+		settings.hqsound = false;
 
 	if (reader.GetBoolean("sound", "fixspeedsound", true))
-		fixspeedsound = true;
+		settings.fixspeedsound = true;
 	else
-		fixspeedsound = false;
+		settings.fixspeedsound = false;
 
 	if (reader.GetBoolean("sound", "oggmusic", true))
 	{
-		oggmusic = true;
-		hqsound = true;//for mp3 music must be activate hqsound
+		settings.oggmusic = true;
+		settings.hqsound = true;//for mp3 music must be activate hqsound
 	}
 	else
-		oggmusic = false;
+		settings.oggmusic = false;
 	if (reader.GetBoolean("sound", "oggmusicalternative", true))
 	{
-		oggmusicalternative = true;
+		settings.oggmusicalternative = true;
 	}
 	else
 	{
-		oggmusicalternative = false;
+		settings.oggmusicalternative = false;
 	}
 
-	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
-	strcpy(oggmusicFolder, (char*)readstr.c_str());
+	settings.oggmusicFolder = reader.GetString("sound", "oggmusicFolder", "");
+	settings.bigGraphicsFolder = reader.GetString("graphics", "bigGraphicsFolder", "");
 
-	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
-	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
-
-	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0)
+	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(settings.bigGraphicsFolder.c_str()) > 0)
 	{
-		bigSprites = true;
-		bigTextures = true;
-		texturepixels = 128;
+		settings.bigSprites = true;
+		settings.bigTextures = true;
+		settings.texturepixels = 128;
 	}
 	else
 	{
-		texturepixels = 32;
+		settings.texturepixels = 32;
 	}
 
 
-	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
-	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
+	settings.gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
+	settings.gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
 
-	if (gameResWidth < 640 || gameResHeight < 480)
+	if (settings.gameResWidth < 640 || settings.gameResHeight < 480)
 	{
-		gameResWidth = 640;
-		gameResHeight = 480;
+		settings.gameResWidth = 640;
+		settings.gameResHeight = 480;
 	}
 
-	windowResWidth = reader.GetInteger("graphics", "windowResWidth", 640);
-	windowResHeight = reader.GetInteger("graphics", "windowResHeight", 480);
+	settings.windowResWidth = reader.GetInteger("graphics", "windowResWidth", 640);
+	settings.windowResHeight = reader.GetInteger("graphics", "windowResHeight", 480);
 
-	if (windowResWidth < 640 || windowResHeight < 480)
+	if (settings.windowResWidth < 640 || settings.windowResHeight < 480)
 	{
-		windowResWidth = 640;
-		windowResHeight = 480;
+		settings.windowResWidth = 640;
+		settings.windowResHeight = 480;
 	}
 
-	if (windowResWidth < gameResWidth) 
+	if (settings.windowResWidth < settings.gameResWidth) 
 	{
-		windowResWidth = gameResWidth;
+		settings.windowResWidth = settings.gameResWidth;
 	}
 
-	if (windowResHeight < gameResHeight)
+	if (settings.windowResHeight < settings.gameResHeight)
 	{
-		windowResHeight = gameResHeight;
+		settings.windowResHeight = settings.gameResHeight;
 	}
 
-	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
-	sky = reader.GetBoolean("graphics", "sky", true);
-	reflections = reader.GetBoolean("graphics", "reflections", false);
-	dynamicLighting = reader.GetBoolean("graphics", "dynamicLighting", false);
+	settings.maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
+	settings.sky = reader.GetBoolean("graphics", "sky", true);
+	settings.reflections = reader.GetBoolean("graphics", "reflections", false);
+	settings.dynamicLighting = reader.GetBoolean("graphics", "dynamicLighting", false);
 
-	std::string readstr2 = reader.GetString("main", "gameFolder", "");
-	strcpy((char*)gameFolder, (char*)readstr2.c_str());
-	std::string readstr4 = reader.GetString("main", "cdFolder", "");
-	strcpy((char*)cdFolder, (char*)readstr4.c_str());
+	settings.gameFolder = reader.GetString("main", "gameFolder", "");
+	settings.cdFolder = reader.GetString("main", "cdFolder", "");
 
-	speedGame = reader.GetInteger("game", "speed", 30);
-	speedAnim = reader.GetInteger("game", "animspeed", 100);
+	settings.speedGame = reader.GetInteger("game", "speed", 30);
+	settings.speedAnim = reader.GetInteger("game", "animspeed", 100);
 
-	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
+	settings.openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
 
-	if (!openGLRender)
+	if (!settings.openGLRender)
 	{
-		multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
-		numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
+		settings.multiThreadedRender = reader.GetBoolean("graphics", "multiThreadedRender", false);
+		settings.numberOfRenderThreads = reader.GetInteger("graphics", "numberOfRenderThreads", 0);
 
-		if (multiThreadedRender)
+		if (settings.multiThreadedRender)
 		{
-			assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
+			settings.assignToSpecificCores = reader.GetBoolean("graphics", "assignToSpecificCores", false);
 
-			if (numberOfRenderThreads < 1)
+			if (settings.numberOfRenderThreads < 1)
 			{
-				numberOfRenderThreads = 1;
+				settings.numberOfRenderThreads = 1;
 			}
 		}
 		else
 		{
-			numberOfRenderThreads = 0;
+			settings.numberOfRenderThreads = 0;
 		}
 	}
 

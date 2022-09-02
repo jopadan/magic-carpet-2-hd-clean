@@ -2,10 +2,6 @@
 #include "engine_support.h"
 #include "CommandLineParser.h"
 
-std::string gameDataPath;
-std::string cdDataPath;
-std::string bigGraphicsPath;
-
 //lenght 18
 //type_17ECA0 str_17ECA0[256]; // weak
 //uint8_t x_DWORD_17ECA0[4608]; // weak
@@ -1551,9 +1547,9 @@ void sub_90478_VGA_Blit320()//271478
 
 	//set speed
 	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
+	long newdelay = settings.speedGame - (actmillis - oldmillis);//max millis is 20 millis
 	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
+	if (newdelay > settings.speedGame)newdelay = settings.speedGame;
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
@@ -1588,9 +1584,9 @@ void sub_75200_VGA_Blit640(uint16_t height)//256200
 
 	//set speed
 	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
+	long newdelay = settings.speedGame - (actmillis - oldmillis);//max millis is 20 millis
 	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
+	if (newdelay > settings.speedGame)newdelay = settings.speedGame;
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed
@@ -1608,9 +1604,9 @@ void VGA_BlitAny()//256200
 
 	//set speed
 	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
+	long newdelay = settings.speedGame - (actmillis - oldmillis);//max millis is 20 millis
 	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
+	if (newdelay > settings.speedGame)newdelay = settings.speedGame;
 	mydelay(newdelay);//set speed
 	oldmillis = actmillis;
 	//set speed

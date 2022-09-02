@@ -724,7 +724,7 @@ void InitLanguage_76A40()//257A40
 	memset(&x_DWORD_17DE38str, 0, sizeof(type_x_DWORD_17DE38str));
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	memset(&configDat, 0, sizeof(TypeConfigDat));
-	sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
+	sprintf(printbuffer, "%s/%s", settings.gameDataPath.c_str(), "CONFIG.DAT");
 	configdatfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (configdatfile == NULL)//config is not found
 	{
@@ -759,7 +759,7 @@ void InitLanguage_76A40()//257A40
 			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
 			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
 
-			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.langIndex_4);
+			sprintf(printbuffer, "%s/%s/L%d.TXT", settings.cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.langIndex_4);
 			for (int i = 0; i < 2; i++)
 			{
 				x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = x_D41A0_BYTEARRAY_4_struct.langIndex_4 & 0xff;
@@ -780,7 +780,7 @@ void InitLanguage_76A40()//257A40
 					sub_5B870_copy_sentence(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);//Exit Game
 					break;
 				}
-				sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex);
+				sprintf(printbuffer, "%s/%s/L%d.TXT", settings.cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex);
 			}
 		}
 		else
@@ -816,7 +816,7 @@ void Intros_76D10(char a1)//257d10
 	x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[308527];
 	x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[310159];
 
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 	sub_7AA70_load_and_decompres_dat_file(dataPath, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[301787], 0x164FCD, 0x35C);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 0x224);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
@@ -838,7 +838,7 @@ void Intros_76D10(char a1)//257d10
 	}
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 	char introPath[MAX_PATH];
-	sprintf(introPath, "%s/%s", cdDataPath.c_str(), "INTRO/INTRO.DAT");
+	sprintf(introPath, "%s/%s", settings.cdDataPath.c_str(), "INTRO/INTRO.DAT");
 	switch (a1)
 	{
 	case 0:
@@ -855,7 +855,7 @@ void Intros_76D10(char a1)//257d10
 			/*v1 = */sub_7A060_get_mouse_and_keyboard_events();
 		}
 		j___delay(50);
-		sprintf(introPath, "%s/%s", cdDataPath.c_str(), "INTRO/INTRO2.DAT");
+		sprintf(introPath, "%s/%s", settings.cdDataPath.c_str(), "INTRO/INTRO2.DAT");
 		goto LABEL_17;
 	case 1:
 		PlayInfoFmv(1, 1, str_E17CC_0, introPath);
@@ -864,7 +864,7 @@ void Intros_76D10(char a1)//257d10
 		LastPressedKey_1806E4 = 0;
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
-		sprintf(introPath, "%s/%s", cdDataPath.c_str(), "INTRO/INTRO2.DAT");
+		sprintf(introPath, "%s/%s", settings.cdDataPath.c_str(), "INTRO/INTRO2.DAT");
 	LABEL_17:
 		PlayInfoFmv(1, 1, str_E17CC_0x160, introPath);//E192C
 		break;
@@ -1328,7 +1328,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	int mouseClick = 0;
 
 	char configFilePath[MAX_PATH];
-	sprintf(configFilePath, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
+	sprintf(configFilePath, "%s/%s", settings.gameDataPath.c_str(), "CONFIG.DAT");
 
 	long langlhandle = 0;
 	long langdhandle = 0;
@@ -1355,11 +1355,11 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 
 	char languagePathL[MAX_PATH];
 	char languagePathD[MAX_PATH];
-	sprintf(languagePathL, "%s/LANGUAGE/L*.TXT", cdDataPath.c_str());
+	sprintf(languagePathL, "%s/LANGUAGE/L*.TXT", settings.cdDataPath.c_str());
 	langlhandle = unknown_libname_2_findfirst(languagePathL, 0, &langFileL);
 	if (langlhandle != 0)// 27B166 - 355088
 	{
-		sprintf(languagePathD, "%s/LANGUAGE/D*.TXT", cdDataPath.c_str());
+		sprintf(languagePathD, "%s/LANGUAGE/D*.TXT", settings.cdDataPath.c_str());
 		langdhandle = unknown_libname_2_findfirst(languagePathD, 0, &langFileD); //v21=3550b4 3550b4
 		if (langlhandle == 0 || langdhandle == 0)
 			langFilename = (char*)langFileL.name;//something was not found
@@ -1510,7 +1510,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	if (langlhandle != 0)//3551d4
 	{
 		char dataPath[MAX_PATH];
-		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+		sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 		sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 768);
 		sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
@@ -1541,9 +1541,9 @@ signed int sub_7E640(type_WORD_E1F84* a1x)//25f640
 	signed int result; // eax
 
 	char dataPath[MAX_PATH];
-	std::string dataPath2 = GetSubDirectoryPath(cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	std::string dataPath2 = GetSubDirectoryPath(settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	if (a1x)
 		v1 = DrawScrollDialog_7BF20(&a1x->str_26);
@@ -1650,7 +1650,7 @@ char LoadGameDialog_780F0(type_WORD_E1F84* a1x)//0x2590f0
 			strcpy(save_name, x_DWORD_E9C4C_langindexbuffer[414]);//(char *)x_DWORD_EA2C4;//2bb2c4 Empty
 			x_DWORD_17DE38str.xx_BYTE_17DF14[im][41] = 0;
 			x_DWORD_17DE38str.xx_BYTE_17DF14[im][42] = 0;
-			std::string saveGameFilePath = GetSaveGameFile(gameFolder, im + 1);
+			std::string saveGameFilePath = GetSaveGameFile(settings.gameFolder, im + 1);
 			SEARCH_FILE = DataFileIO::CreateOrOpenFile(saveGameFilePath.c_str(), 512);
 			if (SEARCH_FILE != NULL)
 			{
@@ -1672,7 +1672,7 @@ char LoadGameDialog_780F0(type_WORD_E1F84* a1x)//0x2590f0
 		if ((x_BYTE)v51 == 1 && x_DWORD_17DE38str.x_WORD_17DF04 > 0)
 		{
 			//Load Saved Game File
-			std::string loadFilePath = GetSaveGameFile(gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
+			std::string loadFilePath = GetSaveGameFile(settings.gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
 			FILE = DataFileIO::CreateOrOpenFile(loadFilePath.c_str(), 512);
 			//v10 = v9;
 			if (FILE != NULL)
@@ -2123,7 +2123,7 @@ char SetKeysDialog_79610()//25a610
 		sub_75200_VGA_Blit640(480);
 
 	char dataPath[MAX_PATH];
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 768);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
@@ -2934,7 +2934,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 				v5 += 2;
 			} while (v7);*/
 			v56 = v45;
-			std::string saveGameFilePath = GetSaveGameFile(gameFolder, v2);
+			std::string saveGameFilePath = GetSaveGameFile(settings.gameFolder, v2);
 			file1 = DataFileIO::CreateOrOpenFile(saveGameFilePath.c_str(), 512);
 			if (file1 != NULL)
 			{
@@ -2966,7 +2966,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 				v9[1] = v12;
 				v9 += 2;
 			} while (v12);*/
-			std::string saveGameFilePath = GetSaveGameFile(gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
+			std::string saveGameFilePath = GetSaveGameFile(settings.gameFolder, x_DWORD_17DE38str.x_WORD_17DF04);
 			file2 = DataFileIO::CreateOrOpenFile(saveGameFilePath.c_str(), 546);
 			if (file2 != NULL)
 			{
@@ -4053,7 +4053,7 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 	//fix it
 	//v9=0;//fix it
 	//fix it
-	std::string languageFilePath = GetSubDirectoryFile(cdFolder, "LANGUAGE", langfilename);
+	std::string languageFilePath = GetSubDirectoryFile(settings.cdFolder, "LANGUAGE", langfilename);
 	for (uint8_t i = 0; i < 2; i++)//[ebp-4]=354f70
 	{
 		//v4 = atoi(langfilename +1);
@@ -4120,7 +4120,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 	unsigned __int8 i; // [esp+54h] [ebp-4h]
 	langcount = 0;
 
-	std::string languagePath = GetSubDirectoryFile(cdFolder, "LANGUAGE", langcountstring);
+	std::string languagePath = GetSubDirectoryFile(settings.cdFolder, "LANGUAGE", langcountstring);
 	for (i = 0; i < 2u; i = v10 + 1)
 	{
 		langcount = atoi((langcountstring + 1));
@@ -4146,7 +4146,7 @@ int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcou
 			break;
 		}
 		v10 = i;
-		languagePath = GetSubDirectoryFile(cdFolder, "LANGUAGE", langcountstring);
+		languagePath = GetSubDirectoryFile(settings.cdFolder, "LANGUAGE", langcountstring);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_98709_create_index_dattab_power(a1x, a2x, a3, a3dattabindex);
@@ -4420,7 +4420,7 @@ void WriteConfigDat_81DB0()//262db0
 	if (x_D41A0_BYTEARRAY_4_struct.setting_38402 == 1)
 	{
 		memset(printbuffer, 0, 80);
-		sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
+		sprintf(printbuffer, "%s/%s", settings.gameDataPath.c_str(), "CONFIG.DAT");
 		memset(&configDat, 0, sizeof(TypeConfigDat));
 		configDatFile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 		if (configDatFile != nullptr)
@@ -4562,7 +4562,7 @@ void sub_82670()//263670
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	//LOWORD(v1) = (unsigned __int8)x_WORD_180660_VGA_type_resolution;
 	LastPressedKey_1806E4 = 0;
@@ -4683,7 +4683,7 @@ void sub_82670()//263670
 					}
 
 					char cutScenePath[MAX_PATH];
-					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", cdDataPath.c_str(), str_E16E0[v3x].byte_6);
+					sprintf(cutScenePath, "%s/INTRO/CUT%d.DAT", settings.cdDataPath.c_str(), str_E16E0[v3x].byte_6);
 					sprintf(printbuffer, "%s", cutScenePath);
 
 					PlayInfoFmv(0, 1, str_E16E0[v3x].pSoundEvent_0, cutScenePath);
@@ -4799,7 +4799,7 @@ void sub_833C0()//2643c0
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	//fix it
 	//v2 = 0;
@@ -4975,7 +4975,7 @@ void ShowWelcomeScreen_83850()//264850
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	//fix it
 	//v2 = 0;
@@ -4986,7 +4986,7 @@ void ShowWelcomeScreen_83850()//264850
 
 	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_E9C38_smalltit, 0x178E5F, 0x32B9);
 	sub_7AA70_load_and_decompres_dat_file(dataPath, *xadatapald0dat2.colorPalette_var28, 0x17C118, 0x300);
-	sub_7AA70_load_and_decompres_dat_file(cdDataPath.c_str(), nullptr, 0, 0);
+	sub_7AA70_load_and_decompres_dat_file(settings.cdDataPath.c_str(), nullptr, 0, 0);
 	//v0 = (int)sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0); //fix it
 	//v0 = 0;//fix it
 	v1 = 0;
@@ -6936,7 +6936,7 @@ signed int sub_7C390()//25d390
 
 	char dataPath[MAX_PATH];
 
-	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+	sprintf(dataPath, "%s/%s", settings.cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 
 	v6x = x_DWORD_E9C38_smalltit;
 	x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;

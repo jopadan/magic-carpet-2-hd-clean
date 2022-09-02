@@ -330,7 +330,7 @@ void InitSound_8D290()//26e290
 
 	char soundGamePath[MAX_PATH];
 
-	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
+	sprintf(soundGamePath, "%s/SOUND", settings.gameDataPath.c_str());
 
 	soundCardOk = false;
 	if (!soundActive2_E3798)
@@ -611,8 +611,8 @@ void InitMusic_8D970()//26e970
 
 	char mdMusicPar1[16];
 
-	sprintf(soundCdPath, "%s/SOUND", cdDataPath.c_str());
-	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
+	sprintf(soundCdPath, "%s/SOUND", settings.cdDataPath.c_str());
+	sprintf(soundGamePath, "%s/SOUND", settings.gameDataPath.c_str());
 
 	const char* mdMusic = nullptr;
 	bool musicCardOk = false;
@@ -1772,7 +1772,7 @@ bool LoadSound_84300(uint8_t soundIndex)//265300
 		if (soundActiveH_E2A14)
 			EndSample_8D8F0();
 
-		std::string soundPath = GetSubDirectoryFile(cdFolder, "SOUND", "SOUND.DAT");
+		std::filesystem::path soundPath = GetSubDirectoryFile(settings.cdFolder, "SOUND", "SOUND.DAT");
 		file = DataFileIO::CreateOrOpenFile(soundPath.c_str(), 512);
 		
 		if (file != NULL)
@@ -4883,7 +4883,7 @@ bool LoadMusic(int channel)//26fad0
 		return false;
 	StopMusic_8E020();
 
-	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", cdDataPath.c_str());
+	sprintf(musicPath, "%s/SOUND/MUSIC.DAT", settings.cdDataPath.c_str());
 	filehandle = DataFileIO::CreateOrOpenFile(musicPath, 512);
 	if (!filehandle)
 		return false;

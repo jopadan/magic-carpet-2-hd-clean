@@ -357,8 +357,8 @@ void /*__fastcall*/ sub_75E70()//256e70
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}
-	int tempSpeed = speedGame;
-	speedGame = speedAnim;
+	int tempSpeed = settings.speedGame;
+	settings.speedGame = settings.speedAnim;
 	if (x_BYTE_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
@@ -369,7 +369,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 	{
 		sub_90478_VGA_Blit320();
 	}
-	speedGame = tempSpeed;
+	settings.speedGame = tempSpeed;
 }
 
 //----- (0002EC60) --------------------------------------------------------

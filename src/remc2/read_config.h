@@ -26,23 +26,40 @@
 #define READ_CONFIG
 
 bool readini();
-extern int config_skip_screen;
-extern int texturepixels;
-extern int speedGame;
-extern int speedAnim;
-extern int windowResWidth;
-extern int windowResHeight;
-extern int gameResWidth;
-extern int gameResHeight;
-extern bool maintainAspectRatio;
-extern bool bigTextures;
-extern bool bigSprites;
-extern bool sky;
-extern bool reflections;
-extern bool dynamicLighting;
-extern bool openGLRender;
-extern bool multiThreadedRender;
-extern int numberOfRenderThreads;
-extern bool assignToSpecificCores;
+typedef struct
+{
+	int config_skip_screen;
+	int texturepixels;
+	int speedGame;
+	int speedAnim;
+	int windowResWidth;
+	int windowResHeight;
+	int gameResWidth;
+	int gameResHeight;
+	bool maintainAspectRatio;
+	bool bigTextures;
+	bool bigSprites;
+	bool sky;
+	bool reflections;
+	bool dynamicLighting;
+	bool openGLRender;
+	bool multiThreadedRender;
+	int numberOfRenderThreads;
+	bool assignToSpecificCores;
+	bool hqsound;
+	bool fixspeedsound;
+	bool oggmusic;
+	bool oggmusicalternative;
+	std::filesystem::path oggmusicFolder;
+	std::filesystem::path gameFolder;
+	std::filesystem::path cdFolder;
+	std::filesystem::path bigGraphicsFolder;
+	std::filesystem::path dataFolder;
+	std::filesystem::path gameDataPath;
+	std::filesystem::path cdDataPath;
+	std::filesystem::path bigGraphicsPath;
+} config_t;
+
+extern config_t settings;
 
 #endif //READ_CONFIG

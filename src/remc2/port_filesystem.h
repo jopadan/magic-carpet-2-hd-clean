@@ -38,10 +38,6 @@
 
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
-extern char gameFolder[512];
-extern char cdFolder[512];
-extern char bigGraphicsFolder[512];
-
 
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
@@ -85,15 +81,13 @@ uint64_t dos_getdiskfree(int16_t a1, int16_t a2, uint8_t a, short* b);
 
 void debug_printf(const char* format, ...);
 
-std::string GetSubDirectoryPath(const char* subDirectory);
-
-std::string GetSubDirectoryPath(const char* gamepath, const char* subDirectory);
-
-std::string GetSubDirectoryFilePath(const char* subDirectory, const char* fileName);
-
-std::string GetSubDirectoryFile(const char* gamepath, const char* subDirectory, const char* fileName);
-
-std::string GetSaveGameFile(const char* gamepath, int16_t index);
+std::filesystem::path GetSubDirectoryPath(const std::filesystem::path& subDirectory);
+std::filesystem::path GetSubDirectoryPath(const std::filesystem::path& gamepath, const std::filesystem::path& subDirectory);
+std::filesystem::path GetSubDirectoryFilePath(const std::filesystem::path& subDirectory, const std::filesystem::path& fileName);
+std::filesystem::path GetSubDirectoryFile(const std::filesystem::path& gamepath, const std::filesystem::path& subDirectory, const std::filesystem::path& fileName);
+std::filesystem::path GetIndexedGameFile(const std::filesystem::path& gamepath, const std::filesystem::path& subDirectory,
+                                         const std::filesystem::path& stem, int16_t index, const std::filesystem::path& ext);
+std::filesystem::path GetSaveGameFile(const std::filesystem::path& gamepath, int16_t index);
 
 int GetDirectory(char* directory, const char* filePath);
 

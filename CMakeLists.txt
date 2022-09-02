@@ -284,7 +284,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 message("-- Data files will be installed to: ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/")
 
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config )
-install(DIRECTORY ${DATADIR} TYPE DATA COMPONENT assets)
+install(FILES ${DATA_FILES} TYPE DATA COMPONENT assets)
 
 install(
     TARGETS ${PROJECT_NAME}
